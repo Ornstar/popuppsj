@@ -92,7 +92,7 @@ grid-template-columns:1fr 1fr;
 gap:10px;
 }
 
-/* BUTTON GOLD PREMIUM */
+/* BUTTON GOLD */
 #popup_final .btn{
 position:relative;
 display:flex;
@@ -105,19 +105,11 @@ font-weight:900;
 color:#000;
 text-decoration:none;
 
-background:linear-gradient(180deg,
-#fff3b0 0%,
-#ffd700 30%,
-#d4af37 60%,
-#b8962e 100%
-);
-
+background:linear-gradient(180deg,#fff3b0,#ffd700,#d4af37,#b8962e);
 border:1px solid #ffd700;
+
 cursor:pointer;
 overflow:hidden;
-
-text-shadow:
-0 1px 1px rgba(255,255,255,.6);
 
 box-shadow:
 inset 0 2px 4px rgba(255,255,255,.7),
@@ -155,7 +147,7 @@ z-index:9999;
 animation:pulse 1s infinite;
 }
 
-/* CLOSE BUTTON GOLD */
+/* 🔴 CLOSE BUTTON MERAH PREMIUM */
 #popup_final .closeX{
 position:absolute;
 bottom:-26px;
@@ -171,19 +163,20 @@ justify-content:center;
 
 font-size:22px;
 font-weight:bold;
-color:#000;
+color:#fff;
 
+/* MERAH PREMIUM */
 background:linear-gradient(180deg,
-#fff3b0,
-#ffd700,
-#d4af37,
-#b8962e
+#ffb3b3 0%,
+#ff4d4d 30%,
+#ff0000 60%,
+#990000 100%
 );
 
 box-shadow:
 0 10px 25px rgba(0,0,0,.9),
-0 0 20px rgba(255,215,0,.9),
-inset 0 4px 6px rgba(255,255,255,.6),
+0 0 20px rgba(255,0,0,.9),
+inset 0 4px 6px rgba(255,255,255,.5),
 inset 0 -4px 8px rgba(0,0,0,.6);
 
 cursor:pointer;
@@ -203,8 +196,20 @@ background:linear-gradient(120deg,transparent,rgba(255,255,255,.9),transparent);
 animation:shineMove 2s infinite;
 }
 
+/* GLOSS */
+#popup_final .closeX::after{
+content:"";
+position:absolute;
+top:-20%;
+left:-10%;
+width:120%;
+height:60%;
+background:radial-gradient(circle, rgba(255,255,255,.5), transparent 70%);
+}
+
+/* HOVER */
 #popup_final .closeX:hover{
-transform:translateX(-50%) scale(1.12);
+transform:translateX(-50%) scale(1.15);
 }
 
 `;
@@ -239,7 +244,7 @@ return `
 
 </div>
 
-<div class="closeX" id="closeBtn">×</div>
+<div class="closeX" id="closeBtn">✕</div>
 
 </div>
 `;
