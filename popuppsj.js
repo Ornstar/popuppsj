@@ -9,26 +9,24 @@ if (!isHome) return;
 
 /* ================= CONFIG ================= */
 
-const BTN1_URL = "https://urlmsshorten.com/whatsapp-official";
-const BTN2_URL = "https://urlmsshorten.com/mauslot-spektakuler";
-const BTN3_URL = "https://urlmsshorten.com/group-tele-official";
-const BTN4_URL = "https://urlmsshorten.com/apk-mauslot";
+const BTN1_URL = "https://urlpsjshorten.com/whatsapp-official";
+const BTN2_URL = "https://urlpsjshorten.com/pasjackpot";
+const BTN3_URL = "https://urlpsjshorten.com/telegram-official";
+const BTN4_URL = "https://urlpsjshorten.com/apk-pasjackpot";
 
 const SLIDES = [
-"https://i.postimg.cc/WpmwdXps/777slotgacorrr.avif",
-"https://i.postimg.cc/ZYPxWVYW/POP-UP.png",
-"https://i.postimg.cc/nLZ0RgLc/MS038-Feed-1080x1080.jpg",
-"https://i.postimg.cc/wvnxHhPC/MS047-POPUP.jpg"
+"https://i.postimg.cc/L6VyYSgW/PSJ033-Square.jpg",
+"https://i.postimg.cc/PJ6nMwV9/PSJ035-Square.jpg"
 ];
 
 /* ================= STYLE ================= */
 
 function injectStyle(){
 
-if(document.getElementById("popup_mauslot")) return;
+if(document.getElementById("popup_pasjackpot")) return;
 
 const style = document.createElement("style");
-style.id = "popup_mauslot";
+style.id = "popup_pasjackpot";
 
 style.textContent = `
 
@@ -58,11 +56,12 @@ transition:opacity .3s ease;
 #popup_final .card{
 width:360px;
 max-width:92vw;
-background:#0b1a3a;
+background:linear-gradient(145deg,#1a1200,#000000);
 border-radius:20px;
 overflow:visible;
 box-shadow:0 20px 60px rgba(0,0,0,.9);
 position:relative;
+border:1px solid #d4af37;
 }
 
 /* BANNER */
@@ -93,7 +92,7 @@ grid-template-columns:1fr 1fr;
 gap:10px;
 }
 
-/* BUTTON */
+/* BUTTON GOLD PREMIUM */
 #popup_final .btn{
 position:relative;
 display:flex;
@@ -103,22 +102,30 @@ height:42px;
 border-radius:40px;
 font-size:11px;
 font-weight:900;
-color:#ffffff;
+color:#000;
 text-decoration:none;
 
-background:linear-gradient(180deg,#1e3a8a,#1e40af,#1d4ed8,#0f172a);
+background:linear-gradient(180deg,
+#fff3b0 0%,
+#ffd700 30%,
+#d4af37 60%,
+#b8962e 100%
+);
 
-border:1px solid #3b82f6;
+border:1px solid #ffd700;
 cursor:pointer;
 overflow:hidden;
 
+text-shadow:
+0 1px 1px rgba(255,255,255,.6);
+
 box-shadow:
-inset 0 2px 0 rgba(255,255,255,.2),
+inset 0 2px 4px rgba(255,255,255,.7),
 inset 0 -3px 6px rgba(0,0,0,.6),
-0 0 12px rgba(59,130,246,.5);
+0 0 15px rgba(255,215,0,.6);
 }
 
-/* SHINE BUTTON */
+/* SHINE */
 #popup_final .btn::before{
 content:"";
 position:absolute;
@@ -126,8 +133,8 @@ top:-50%;
 left:-120%;
 width:120%;
 height:200%;
-background:linear-gradient(120deg,transparent,rgba(255,255,255,.8),transparent);
-animation:shineMove 3s infinite;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,.9),transparent);
+animation:shineMove 2.5s infinite;
 }
 
 /* HOT */
@@ -139,7 +146,7 @@ position:relative;
 position:absolute;
 top:-10px;
 right:-6px;
-background:#ef4444;
+background:#ff0000;
 color:#fff;
 font-size:9px;
 padding:4px 6px;
@@ -148,7 +155,7 @@ z-index:9999;
 animation:pulse 1s infinite;
 }
 
-/* 🔴 CLOSE BUTTON RED CANDY FINAL */
+/* CLOSE BUTTON GOLD */
 #popup_final .closeX{
 position:absolute;
 bottom:-26px;
@@ -164,19 +171,19 @@ justify-content:center;
 
 font-size:22px;
 font-weight:bold;
-color:#fff;
+color:#000;
 
 background:linear-gradient(180deg,
-#ff9a9a 0%,
-#ff4d4d 25%,
-#ff0000 60%,
-#990000 100%
+#fff3b0,
+#ffd700,
+#d4af37,
+#b8962e
 );
 
 box-shadow:
 0 10px 25px rgba(0,0,0,.9),
-0 0 20px rgba(255,0,0,.9),
-inset 0 4px 6px rgba(255,255,255,.5),
+0 0 20px rgba(255,215,0,.9),
+inset 0 4px 6px rgba(255,255,255,.6),
 inset 0 -4px 8px rgba(0,0,0,.6);
 
 cursor:pointer;
@@ -184,7 +191,7 @@ overflow:hidden;
 transition:.2s;
 }
 
-/* ✨ KILAU GERAK */
+/* SHINE CLOSE */
 #popup_final .closeX::before{
 content:"";
 position:absolute;
@@ -193,27 +200,12 @@ left:-120%;
 width:120%;
 height:200%;
 background:linear-gradient(120deg,transparent,rgba(255,255,255,.9),transparent);
-transform:skewX(-25deg);
-animation:shineMove 2.2s infinite;
+animation:shineMove 2s infinite;
 }
 
-/* 💎 GLOSS ATAS */
-#popup_final .closeX::after{
-content:"";
-position:absolute;
-top:-20%;
-left:-10%;
-width:120%;
-height:60%;
-background:radial-gradient(circle, rgba(255,255,255,.6), transparent 70%);
-}
-
-/* HOVER */
 #popup_final .closeX:hover{
 transform:translateX(-50%) scale(1.12);
 }
-
-/* ================= */
 
 `;
 
@@ -264,7 +256,6 @@ wrap.id="popup_final";
 wrap.innerHTML=buildHTML();
 document.body.appendChild(wrap);
 
-/* SLIDER */
 const slides = wrap.querySelector(".slides");
 let index = 0;
 
@@ -273,7 +264,6 @@ index = (index + 1) % SLIDES.length;
 slides.style.transform = `translateX(-${index*100}%)`;
 },3000);
 
-/* CLOSE */
 document.getElementById("closeBtn").onclick=()=>{
 wrap.style.opacity="0";
 setTimeout(()=>wrap.remove(),300);
@@ -281,7 +271,7 @@ setTimeout(()=>wrap.remove(),300);
 
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
+window.addEventListener("load",()=>{
 setTimeout(init,800);
 });
 
