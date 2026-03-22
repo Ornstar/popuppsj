@@ -15,8 +15,8 @@ const BTN3_URL = "https://urlpsjshorten.com/telegram-official";
 const BTN4_URL = "https://urlpsjshorten.com/apk-pasjackpot";
 
 const SLIDES = [
-"https://i.postimg.cc/L6VyYSgW/PSJ033-Square.jpg",
-"https://i.postimg.cc/PJ6nMwV9/PSJ035-Square.jpg"
+"http://plcl.me/images/3y4hN.jpg",
+"http://plcl.me/images/zdCqv.jpg"
 ];
 
 /* ================= STYLE ================= */
