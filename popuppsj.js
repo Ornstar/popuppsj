@@ -2,282 +2,149 @@
 "use strict";
 
 /* ================= FILTER ================= */
-
-const currentURL = window.location.href.toLowerCase();
-const isHome = currentURL.includes("home") || currentURL.endsWith("/");
-if (!isHome) return;
+const url = location.href.toLowerCase();
+if (!(url.includes("home") || url.endsWith("/"))) return;
 
 /* ================= CONFIG ================= */
-
-const BTN1_URL = "https://urlpsjshorten.com/whatsapp-official";
-const BTN2_URL = "https://urlpsjshorten.com/pasjackpot";
-const BTN3_URL = "https://urlpsjshorten.com/telegram-official";
-const BTN4_URL = "https://urlpsjshorten.com/apk-pasjackpot";
+const BTN = [
+"https://urlpsjshorten.com/whatsapp-official",
+"https://urlpsjshorten.com/pasjackpot",
+"https://urlpsjshorten.com/telegram-official",
+"https://urlpsjshorten.com/apk-pasjackpot"
+];
 
 const SLIDES = [
-"http://plcl.me/images/3y4hN.jpg",
+"http://plcl.me/images/3v4bN.jpg",
 "http://plcl.me/images/zdCqv.jpg"
 ];
 
 /* ================= STYLE ================= */
-
-function injectStyle(){
-
-if(document.getElementById("popup_pasjackpot")) return;
-
-const style = document.createElement("style");
-style.id = "popup_pasjackpot";
-
-style.textContent = `
-
-@keyframes shineMove{
-0%{left:-120%}
-100%{left:120%}
+if (!document.getElementById("popup_psj")) {
+const s = document.createElement("style");
+s.id = "popup_psj";
+s.textContent = `
+#psj_overlay{
+position:fixed;inset:0;
+background:rgba(0,0,0,.6);
+z-index:9998;
+opacity:0;
+transition:.3s;
 }
+#psj_overlay.show{opacity:1}
 
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.2)}
-100%{transform:scale(1)}
-}
-
-/* POPUP */
-#popup_final{
+#psj_popup{
 position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-z-index:999999;
+top:50%;left:50%;
+transform:translate(-50%,-50%) scale(.8);
+opacity:0;
+z-index:9999;
+transition:.4s cubic-bezier(.22,1,.36,1);
 font-family:Arial;
-transition:opacity .3s ease;
+}
+#psj_popup.show{
+opacity:1;
+transform:translate(-50%,-50%) scale(1);
 }
 
-/* CARD */
-#popup_final .card{
-width:360px;
-max-width:92vw;
-background:linear-gradient(145deg,#1a1200,#000000);
+#psj_popup .card{
+width:360px;max-width:92vw;
+background:#000;
 border-radius:20px;
-overflow:visible;
-box-shadow:0 20px 60px rgba(0,0,0,.9);
-position:relative;
-border:1px solid #d4af37;
-}
-
-/* BANNER */
-#popup_final .banner{
-aspect-ratio:4/4;
 overflow:hidden;
-border-radius:20px 20px 0 0;
+border:1px solid gold;
+box-shadow:0 20px 60px rgba(0,0,0,.9);
 }
 
-#popup_final .slides{
-display:flex;
-height:100%;
-transition:transform .5s ease;
+.banner{aspect-ratio:1;overflow:hidden}
+.slides{display:flex;height:100%;transition:.5s}
+.slides img{
+width:100%;height:100%;
+object-fit:contain;flex-shrink:0
 }
 
-#popup_final .slides img{
-width:100%;
-height:100%;
-object-fit:contain;
-flex-shrink:0;
-}
-
-/* BUTTONS */
-#popup_final .buttons{
-padding:16px;
+.buttons{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
+gap:10px;padding:15px
+}
+.btn{
+display:flex;align-items:center;justify-content:center;
+height:42px;border-radius:40px;
+font-size:11px;font-weight:bold;
+background:gold;color:#000;text-decoration:none;
 }
 
-/* BUTTON GOLD */
-#popup_final .btn{
-position:relative;
-display:flex;
-align-items:center;
-justify-content:center;
-height:42px;
-border-radius:40px;
-font-size:11px;
-font-weight:900;
-color:#000;
-text-decoration:none;
-
-background:linear-gradient(180deg,#fff3b0,#ffd700,#d4af37,#b8962e);
-border:1px solid #ffd700;
-
-cursor:pointer;
-overflow:hidden;
-
-box-shadow:
-inset 0 2px 4px rgba(255,255,255,.7),
-inset 0 -3px 6px rgba(0,0,0,.6),
-0 0 15px rgba(255,215,0,.6);
-}
-
-/* SHINE */
-#popup_final .btn::before{
-content:"";
+.close{
 position:absolute;
-top:-50%;
-left:-120%;
-width:120%;
-height:200%;
-background:linear-gradient(120deg,transparent,rgba(255,255,255,.9),transparent);
-animation:shineMove 2.5s infinite;
-}
-
-/* HOT */
-#popup_final .btnWrap{
-position:relative;
-}
-
-#popup_final .hot{
-position:absolute;
-top:-10px;
-right:-6px;
-background:#ff0000;
-color:#fff;
-font-size:9px;
-padding:4px 6px;
-border-radius:6px;
-z-index:9999;
-animation:pulse 1s infinite;
-}
-
-/* 🔴 CLOSE BUTTON MERAH PREMIUM */
-#popup_final .closeX{
-position:absolute;
-bottom:-26px;
-left:50%;
+bottom:-25px;left:50%;
 transform:translateX(-50%);
-width:52px;
-height:52px;
+width:50px;height:50px;
 border-radius:50%;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:22px;
-font-weight:bold;
-color:#fff;
-
-/* MERAH PREMIUM */
-background:linear-gradient(180deg,
-#ffb3b3 0%,
-#ff4d4d 30%,
-#ff0000 60%,
-#990000 100%
-);
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.9),
-0 0 20px rgba(255,0,0,.9),
-inset 0 4px 6px rgba(255,255,255,.5),
-inset 0 -4px 8px rgba(0,0,0,.6);
-
+background:red;color:#fff;
+display:flex;align-items:center;justify-content:center;
 cursor:pointer;
-overflow:hidden;
-transition:.2s;
 }
-
-/* SHINE CLOSE */
-#popup_final .closeX::before{
-content:"";
-position:absolute;
-top:-50%;
-left:-120%;
-width:120%;
-height:200%;
-background:linear-gradient(120deg,transparent,rgba(255,255,255,.9),transparent);
-animation:shineMove 2s infinite;
-}
-
-/* GLOSS */
-#popup_final .closeX::after{
-content:"";
-position:absolute;
-top:-20%;
-left:-10%;
-width:120%;
-height:60%;
-background:radial-gradient(circle, rgba(255,255,255,.5), transparent 70%);
-}
-
-/* HOVER */
-#popup_final .closeX:hover{
-transform:translateX(-50%) scale(1.15);
-}
-
 `;
-
-document.head.appendChild(style);
+document.head.appendChild(s);
 }
 
 /* ================= HTML ================= */
+const popup = document.createElement("div");
+popup.id = "psj_popup";
 
-function buildHTML(){
-
-const slidesHTML = SLIDES.map(s=>`<img src="${s}">`).join("");
-
-return `
+popup.innerHTML = `
 <div class="card">
-
 <div class="banner">
-<div class="slides">${slidesHTML}</div>
+<div class="slides">
+${SLIDES.map(s=>`<img src="${s}">`).join("")}
+</div>
 </div>
 
 <div class="buttons">
-
-<a class="btn" href="${BTN1_URL}" target="_blank">HUBUNGI KAMI</a>
-<a class="btn" href="${BTN2_URL}" target="_blank">LINK ANTI NAWALA</a>
-
-<div class="btnWrap">
-<span class="hot">HOT</span>
-<a class="btn" href="${BTN3_URL}" target="_blank">AMBIL BONUS</a>
+<a class="btn" href="${BTN[0]}" target="_blank">WHATSAPP</a>
+<a class="btn" href="${BTN[1]}" target="_blank">LINK</a>
+<a class="btn" href="${BTN[2]}" target="_blank">TELEGRAM</a>
+<a class="btn" href="${BTN[3]}" target="_blank">APK</a>
 </div>
 
-<a class="btn" href="${BTN4_URL}" target="_blank">APK GRATIS</a>
-
-</div>
-
-<div class="closeX" id="closeBtn">✕</div>
-
+<div class="close">✕</div>
 </div>
 `;
-}
+
+const overlay = document.createElement("div");
+overlay.id = "psj_overlay";
 
 /* ================= INIT ================= */
+window.addEventListener("load", () => {
 
-function init(){
+setTimeout(() => {
+document.body.append(overlay, popup);
 
-injectStyle();
+setTimeout(()=>{
+popup.classList.add("show");
+overlay.classList.add("show");
+},50);
 
-const wrap=document.createElement("div");
-wrap.id="popup_final";
-wrap.innerHTML=buildHTML();
-document.body.appendChild(wrap);
-
-const slides = wrap.querySelector(".slides");
-let index = 0;
-
-setInterval(()=>{
-index = (index + 1) % SLIDES.length;
-slides.style.transform = `translateX(-${index*100}%)`;
-},3000);
-
-document.getElementById("closeBtn").onclick=()=>{
-wrap.style.opacity="0";
-setTimeout(()=>wrap.remove(),300);
+/* close */
+const close = () => {
+popup.style.opacity = "0";
+overlay.style.opacity = "0";
+setTimeout(()=>{ popup.remove(); overlay.remove(); },300);
 };
 
-}
+popup.querySelector(".close").onclick = close;
+overlay.onclick = close;
 
-window.addEventListener("load",()=>{
-setTimeout(init,800);
+/* slider */
+let i=0;
+const slides = popup.querySelector(".slides");
+setInterval(()=>{
+i = (i+1) % SLIDES.length;
+slides.style.transform = `translateX(-${i*100}%)`;
+},2500);
+
+},800);
+
 });
 
 })();
