@@ -14,8 +14,8 @@ const BTN = [
 ];
 
 const SLIDES = [
-"http://plcl.me/images/3v4bN.jpg",
-"http://plcl.me/images/zdCqv.jpg"
+"https://i.postimg.cc/T12MPRJZ/20260506-150801.webp",
+"http://plcl.me/images/ACyss.jpg"
 ];
 
 /* ================= STYLE ================= */
